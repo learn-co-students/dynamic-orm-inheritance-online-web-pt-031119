@@ -1,5 +1,6 @@
 require_relative "../config/environment.rb"
 require 'active_support/inflector'
+require 'pry'
 
 class InteractiveRecord
 
@@ -9,7 +10,7 @@ class InteractiveRecord
 
   def self.column_names
     DB[:conn].results_as_hash = true
-
+    #binding.pry
     sql = "pragma table_info('#{table_name}')"
 
     table_info = DB[:conn].execute(sql)
@@ -22,6 +23,7 @@ class InteractiveRecord
 
   def initialize(options={})
     options.each do |property, value|
+      #binding.pry
       self.send("#{property}=", value)
     end
   end
